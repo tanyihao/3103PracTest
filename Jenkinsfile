@@ -1,6 +1,22 @@
 pipeline {
-	agent none
+	agent any
 	stages {
+		stage ('Checkout') { 
+            steps { 
+                git branch:'main', url: 'https://github.com/jerone-1997/jenkins-php-selenium-test.git' 
+            } 
+        } 
+         
+        stage('Code Quality Check via SonarQube') { 
+			steps { 
+				script { 
+				   	def scannerHome = tool 'SonarQube'; 
+				   	withSonarQubeEnv('SonarQube') { 
+					   sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=OWASP -Dsonar.sources=." 
+					} 
+				} 
+			} 
+        } 
 		stage('Integration UI Test') {
 			parallel {
 				stage('Deploy') {
@@ -30,5 +46,10 @@ pipeline {
 				}
 			}
 		}
-	}
+    } 
+	post { 
+		always { 
+			recordIssues enabledForFailure: true, tool: sonarQube() 
+		} 
+    } 
 }

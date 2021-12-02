@@ -1,4 +1,4 @@
-package com.mycompany.app;
+package test.java.mycompany.app;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -16,20 +16,18 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-/**
- * Integration UI test for PHP App.
- */
+
 public class AppTest
 {
 	WebDriver driver; 
 	WebDriverWait wait; 
 
-	// Jerone Poh's VM
-	String url = "http://3.145.77.2";
-	String validSearch = "Jerone Poh";
+	
+	String url = "http://3.17.9.131/";
+	String validSearch = "Tan Yi Hao";
 
 	// XSS Input
-	String invalidSearch = "<script>alert('Attacked By Jerone Poh')</script>";
+	String invalidSearch = "<script>alert('Attacked By Tan Yi Hao')</script>";
 
     @Before
     public void setUp() { 
@@ -49,7 +47,7 @@ public class AppTest
 		//get web page
 		driver.get(url);
 		//wait until page is loaded or timeout error
-		wait.until(ExpectedConditions.titleContains("ICT3x03 |")); 
+		wait.until(ExpectedConditions.titleContains("Test")); 
 
 		//enter input
 		driver.findElement(By.name("search")).sendKeys(validSearch);
@@ -57,7 +55,7 @@ public class AppTest
 		driver.findElement(By.name("submit")).submit();
 	
 		//check result 
-		String expectedResult = "Dashboard |"; 
+		String expectedResult = "Search"; 
 		boolean isResultCorrect = wait.until(ExpectedConditions.titleContains(expectedResult)); 
 		assertTrue(isResultCorrect == true); 
 	}
@@ -77,7 +75,7 @@ public class AppTest
 		//click submit
 		driver.findElement(By.name("submit")).submit();
 		
-		String expectedResult = "ICT3x03 |"; 
+		String expectedResult = "Search"; 
 		boolean isResultCorrect = wait.until(ExpectedConditions.titleContains(expectedResult)); 
 		assertTrue(isResultCorrect == true); 
 	}

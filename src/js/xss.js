@@ -12,8 +12,9 @@ function checkXSS() {
             if (data.success == true) {
                 searchBox.value = "";
             } else {
-                window.location.href = "searched.php";
+                window.location = "dashboard.php";
             }
+            return false;
         },
         error: function (request, status, error) {
             console.log(request);

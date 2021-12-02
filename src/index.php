@@ -1,22 +1,25 @@
 <?php 
 	session_start();
+	if (!isset($_SESSION['hello'])) {
+		$_SESSION['hello'] = "";
+	}
 ?>
 
 <!DOCTYPE html>
-<html>
-<head>
-<title></title>
-</head>
+<html lang="en" xml:lang="en">
+	<head>
+		<title>Test</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
 
-<body>]
-	<div class="container">
-		<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
-				<label>Search</label>
-				<input type="text" id="search" name="search" required placeholder="">
-			
-				<button type="submit" name="submit" onclick="return checkXSS()">Search</button>
-		</form>
-	</div>
-	<script src="js/xss.js"></script>
-</body>
+	<body>
+			<form action="" method="post" onsubmit="return checkXSS()">
+					<label>Search: </label>
+					<input type="text" id="search" name="search" required placeholder="">
+					<input type="submit" name="submit"></button>
+			</form>
+		</div>
+		<script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="js/xss.js"></script>
+	</body>
 </html>
